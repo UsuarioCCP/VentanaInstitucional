@@ -1,0 +1,14 @@
+#carouselExampleCaptions{
+	/* background: linear-gradient(90deg, #1c3643a1, #273b47b4 25%, #1e5372b7); */
+  background: #9998985f;
+  /* -webkit-backdrop-filter: blur(5px); */
+  backdrop-filter: blur(5px);
+  /* position: relative; */
+  /* display: grid; */
+  border-radius: 1px;
+  border: 8px solid #fcfcfc6f;
+  width: 80%;
+  /* height: 85%; */
+  /* justify-items: center;
+  align-items: center; */
+}
