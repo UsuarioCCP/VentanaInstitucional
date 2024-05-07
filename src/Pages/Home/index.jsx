@@ -28,7 +28,6 @@ function Home() {
                     <Carousel />
                 </div>
             </div>
-            Home
         </Layout>
     );
 }
