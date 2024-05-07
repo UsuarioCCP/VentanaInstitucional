@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className="my-4 mx-10 flex flex-wrap items-center justify-between p-4">
         <ul className="flex items-center gap-3">
           <li className="font-semibold text-lg">
-            <NavLink to="/home">
+            <NavLink to="/">
               <div className="md:w-full gap-3" id="contenedor-logos">
                 <img
                   src="https://i.imgur.com/k9aBoGR.png"
