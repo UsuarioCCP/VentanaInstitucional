@@ -5,8 +5,6 @@ function Admin() {
   return (
     <Layout>
       <Form />
-
-      
     </Layout>
   );
 }
