@@ -32,17 +32,18 @@ const FormCarousel = ({ cambioImagenCarouselUrl }) => {
   return (
     <div className="grid grid-cols-4 gap-4">
       <div className="grid col-span-4">
-        <h1 className="text-center mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
-          Cambio Imágenes
+        <h1 className="text-center mb-1 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
+          Cambiar Información
         </h1>
       </div>
 
       {imagenes.map((imagen, index) => (
-        <div key={index} className="grid col-span-1 border-2 border-solid border-red-600">
+        <div key={index} className="grid col-span-1 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <h1 className="text-center">Imagen {index+1}</h1>
           <div className="flex flex-col justify-between ">
-            <label htmlFor="">Url</label>
+            <label className="block pl-2 text-sm font-medium text-gray-900 dark:text-white">Url</label>
             <input
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               type="text"
               name="url"
               placeholder="Ingresa la URL de la imagen"
@@ -50,24 +51,29 @@ const FormCarousel = ({ cambioImagenCarouselUrl }) => {
               onChange={(e) => handleInputChange(index, e)}
               style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
             />
-            {imagen.url && ( // Mostrar la imagen solo si la URL está ingresada
-              <img
-                src={imagen.url}
-                alt={`Imagen ${index + 1}`}
-                style={{ width: '150px', height: '150px', marginBottom: '10px' }}
-              /> 
-            )}
-            <label htmlFor="">Titulo</label>
+            <div className="flex justify-center">
+              {imagen.url && ( // Mostrar la imagen solo si la URL está ingresada
+                <img
+                  className=" max-w-lg mx-auto object-fill w-[15rem] h-[12rem]"
+                  src={imagen.url}
+                  alt={`Imagen ${index + 1}`}
+                  
+                /> 
+              )}
+            </div>
+            <label className="block pl-2 text-sm font-medium text-gray-900 dark:text-white">Titulo</label>
             <input
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               type="text"
               name="titulo"
               placeholder="Ingresa el título de la imagen"
               value={imagen.titulo}
               onChange={(e) => handleInputChange(index, e)}
-              style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
+              style={{ width: '100%', padding: '5px', marginBottom: '5px' }}
             />
-            <label htmlFor="">Descripcion</label>
+            <label className="blockp-2 pl-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
             <textarea
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               name="descripcion"
               placeholder="Ingresa la descripción de la imagen"
               value={imagen.descripcion}
@@ -89,9 +95,6 @@ const FormCarousel = ({ cambioImagenCarouselUrl }) => {
           </button>
         </div>
       </div>
-
-      {/* Mostrar la última imagen ingresada */}
-      {imagenes.length > 0 && <ImagenVisor imageUrl={imagenes[imagenes.length - 1].url} />}
     </div>
   );
 };
