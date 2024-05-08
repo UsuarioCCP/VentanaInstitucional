@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../../Componentes/Layout';
 import VideoVisor from '../../Componentes/VideoVisor';
 import Carousel from '../../Componentes/Carousel';
+import Baner from '../../Componentes/Baner';
 
 function Home() {
     // URL inicial en caso de que no haya ninguna en el almacenamiento local
@@ -28,7 +29,9 @@ function Home() {
                     <Carousel />
                 </div>
             </div>
+            <Baner />
         </Layout>
+        
     );
 }
 
