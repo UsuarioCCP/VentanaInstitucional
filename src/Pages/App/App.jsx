@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, useRoutes } from 'react-router-dom'
+import { ImagenesProvider } from "../../Componentes/Context/ImagenContext";
 import Home from '../Home/';
 import Admin from '../Admin/';
 import Navbar from '../../Componentes/Navbar';
@@ -20,12 +21,14 @@ const App = () => {
   
 
   return (
-       <BrowserRouter>
-        <AppRoutes />
-          <Navbar />
-          {/* <Form /> */}
-          {/* <Baner /> */}
-       </BrowserRouter>
+       <ImagenesProvider>
+          <BrowserRouter>
+            <AppRoutes />
+            <Navbar />
+            {/* <Form /> */}
+            {/* <Baner /> */}
+        </BrowserRouter>
+       </ImagenesProvider>
   )
 }
 

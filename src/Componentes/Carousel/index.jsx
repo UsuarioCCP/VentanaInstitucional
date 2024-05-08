@@ -1,41 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { ImagenesContext } from "../Context/ImagenContext";
 import "./styles.css";
 
 function Carousel() {
+  const { imagenes } = useContext(ImagenesContext);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const slidesData = [
-    {
-      title: "Garfiel",
-      imageUrl: "https://i.imgur.com/QFRW2ig.jpg",
-      description:
-        "🎃 ¡Adéntrate en el oscuro festín de nuestro Combo Perro Americano del Más Allá! 🌭👻",
-    },
-    {
-      title: "Calzadofootprints",
-      imageUrl: "https://i.imgur.com/QQ6SU5S.jpg",
-      description:
-        "Los instantes son pasajeros,vivamos cada día con amor y alegría 👣😊regalemos sonrisas😀😘👣#calzadofootprints",
-    },
-    {
-      title: "Cosa Peluda",
-      imageUrl: "https://i.imgur.com/tHolPmT.jpg",
-      description: "Cosa Peluda. Estilo para tu mascota.",
-    },
-    {
-      title: "Linea de Atención Express",
-      imageUrl: "https://i.imgur.com/XIbD9ht.jpg",
-      description: "Linea de atención Express Cameral",
-    },
-  ];
-
+  // Actualizar el índice activo cuando cambian las imágenes
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % slidesData.length); // Mostrar un elemento a la vez
+      setActiveIndex((prevIndex) => (prevIndex + 1) % imagenes.length);
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [slidesData.length]);
+  }, [imagenes.length]);
 
   return (
     <div
@@ -45,29 +23,26 @@ function Carousel() {
       data-te-ride="carousel"
     >
       <div className="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
-        {slidesData.slice(activeIndex, activeIndex + 1).map((slide, index) => (
+        {/* Mostrar las imágenes desde el contexto */}
+        {imagenes.map((imagen, index) => (
           <div
             key={index}
             className={`relative float-left w-full transition-transform duration-600ms ease-in-out motion-reduce:transition-none`}
             data-te-carousel-active
             data-te-carousel-item
             id="slide-carousel"
+            style={{ display: index === activeIndex ? "block" : "none" }}
           >
-            <img
-              src={slide.imageUrl}
-              className="block w-full h-96"
-              id="imagen-carousel"
-              alt="..."
-            />
+            <img src={imagen.url} className="block w-full h-96" id="imagen-carousel" alt={`Slide ${index}`} />
 
             <div className="p-5">
               <a href="#">
                 <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-gray-900 dark:text-white">
-                  {slide.title}
+                  {imagen.titulo}
                 </h5>
               </a>
               <p className="mb-3 text-center font-medium text-black dark:text-gray-400">
-                {slide.description}
+                {imagen.descripcion}
               </p>
             </div>
           </div>

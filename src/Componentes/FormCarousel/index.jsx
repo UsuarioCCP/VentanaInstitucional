@@ -1,47 +1,45 @@
-import React, { useState, useEffect } from "react";
-import ImagenVisor from '../VisorImagen';
+import React, { useContext } from 'react';
+import { ImagenesContext } from '../Context/ImagenContext';
 
-const FormCarousel = ({ cambioImagenCarouselUrl }) => {
-  const [imagenes, setImagenes] = useState([
-    { url: "", titulo: "", descripcion: "", position:1 },
-    { url: "", titulo: "", descripcion: "", position:2 },
-    { url: "", titulo: "", descripcion: "", position:3 },
-    { url: "", titulo: "", descripcion: "", position:4 }
-  ]);
 
-  // Cargar imágenes desde localStorage al iniciar
-  useEffect(() => {
-    const storedImages = localStorage.getItem("carouselImages");
-    if (storedImages) {
-      setImagenes(JSON.parse(storedImages));
-    }
-  }, []);
+const FormCarousel = () => {
+  const { imagenes, actualizarImagenes } = useContext(ImagenesContext);
+
+  const agregarNuevaImagen = (event) => {
+    event.preventDefault(); // Prevenir el comportamiento predeterminado de envío del formulario
+    const nuevaImagen = { url: '', titulo: '', descripcion: '' };
+    const nuevasImagenes = [...imagenes, nuevaImagen];
+    actualizarImagenes(nuevasImagenes);
+  };
+
+  const quitarImagen = (index) => {
+    const nuevasImagenes = [...imagenes];
+    nuevasImagenes.splice(index, 1); // Remover elemento en el índice dado
+    actualizarImagenes(nuevasImagenes);
+  };
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
     const updatedImages = [...imagenes];
     updatedImages[index][name] = value;
-    setImagenes(updatedImages);
+    actualizarImagenes(updatedImages);
   };
 
   const handleSaveChanges = () => {
-    localStorage.setItem("carouselImages", JSON.stringify(imagenes));
-    // Lógica adicional aquí, si es necesario
+    localStorage.setItem('carouselImages', JSON.stringify(imagenes));
+    console.log('Cambios guardados en localStorage:', imagenes);
   };
 
   return (
-    <div className="grid grid-cols-4 gap-4">
-      <div className="grid col-span-4">
-        <h1 className="text-center mb-1 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
-          Cambiar Información
-        </h1>
-      </div>
-
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
       {imagenes.map((imagen, index) => (
-        <div key={index} className="grid col-span-1 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <h1 className="text-center">Imagen {index+1}</h1>
-          <div className="flex flex-col justify-between ">
-            <label className="block pl-2 text-sm font-medium text-gray-900 dark:text-white">Url</label>
+        <div key={index} className="relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <h1 className="text-center text-lg font-bold text-gray-900 dark:text-white">Imagen {index + 1}</h1>
+          <button className="absolute top-1 right-1 text-red-600" onClick={() => quitarImagen(index)}>
+            X
+          </button>
+          <div className="p-4">
+            <label className="block text-sm font-medium text-gray-900 dark:text-white">URL</label>
             <input
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               type="text"
@@ -49,50 +47,45 @@ const FormCarousel = ({ cambioImagenCarouselUrl }) => {
               placeholder="Ingresa la URL de la imagen"
               value={imagen.url}
               onChange={(e) => handleInputChange(index, e)}
-              style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
             />
-            <div className="flex justify-center">
-              {imagen.url && ( // Mostrar la imagen solo si la URL está ingresada
-                <img
-                  className=" max-w-lg mx-auto object-fill w-[15rem] h-[12rem]"
-                  src={imagen.url}
-                  alt={`Imagen ${index + 1}`}
-                  
-                /> 
-              )}
-            </div>
-            <label className="block pl-2 text-sm font-medium text-gray-900 dark:text-white">Titulo</label>
+            {imagen.url && (
+              <img
+                className="mt-4 mx-auto object-fill w-[13rem] h-[12rem]"
+                src={imagen.url}
+                alt={`Imagen ${index + 1}`}
+              />
+            )}
+            <label className="block mt-4 text-sm font-medium text-gray-900 dark:text-white">Título</label>
             <input
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               type="text"
+              maxLength="20"
               name="titulo"
-              placeholder="Ingresa el título de la imagen"
+              placeholder="Ingresa título corto"
               value={imagen.titulo}
               onChange={(e) => handleInputChange(index, e)}
-              style={{ width: '100%', padding: '5px', marginBottom: '5px' }}
             />
-            <label className="blockp-2 pl-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
+            <label className="block mt-4 text-sm font-medium text-gray-900 dark:text-white">Descripción</label>
             <textarea
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              className="form-textarea resize-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               name="descripcion"
-              placeholder="Ingresa la descripción de la imagen"
+              maxLength="115"
+              placeholder="Descripción no mayor a 115 caracteres"
               value={imagen.descripcion}
               onChange={(e) => handleInputChange(index, e)}
-              style={{ width: '100%', padding: '10px', marginBottom: '10px', resize: 'vertical' }}
             />
           </div>
         </div>
       ))}
+      <div className="flex justify-evenly col-span-6 mt-4">
+        {/* Botón para agregar nueva imagen */}
+        <div className="col-span-2 mt-1">
+          <button onClick={agregarNuevaImagen} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full">Agregar Imagen</button>
+        </div>
 
-      <div className="grid col-span-4 mt-4">
-        <div className="flex justify-evenly">
-          <button
-            onClick={handleSaveChanges}
-            type="button"
-            className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-          >
-            Guardar Cambios
-          </button>
+        {/* Botón para guardar cambios */}
+        <div className="col-span-2 mt-1">
+          <button onClick={handleSaveChanges} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full">Guardar Cambios</button>
         </div>
       </div>
     </div>
