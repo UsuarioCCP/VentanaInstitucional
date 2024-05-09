@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { ImagenesContext } from '../Context/ImagenContext';
 
-
 const FormCarousel = () => {
   const { imagenes, actualizarImagenes } = useContext(ImagenesContext);
 
