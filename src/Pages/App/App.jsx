@@ -1,5 +1,5 @@
 // import React, { useState } from "react";
-import { BrowserRouter, useRoutes } from 'react-router-dom'
+import { BrowserRouter, useRoutes } from 'react-router-dom';
 import { ImagenesProvider } from "../../Componentes/Context/ImagenContext";
 import Home from '../Home/';
 import Admin from '../Admin/';
@@ -13,20 +13,15 @@ const AppRoutes = () => {
     { path: '/', element: <Home />} ,
     { path: '/admin', element: <Admin /> },
   ])
-
   return routes
 }
 
 const App = () => {
-  
-
   return (
        <ImagenesProvider>
           <BrowserRouter>
             <AppRoutes />
             <Navbar />
-            {/* <Form /> */}
-            {/* <Baner /> */}
         </BrowserRouter>
        </ImagenesProvider>
   )
