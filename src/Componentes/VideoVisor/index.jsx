@@ -1,23 +1,3 @@
-// import React from "react";
-// import './styles.css'
-
-// function VideoVisor({ videoUrl }) {
-//   return (
-//     <div className="w-full" id="visor">
-//       <iframe
-//         className="relative h-full w-full"
-//         src={videoUrl} // Usa videoUrl como prop
-//         title="YouTube video player"
-//         frameBorder="0"
-//         allow="accelerometer; autoplay; clipboard-write"
-//         allowFullScreen
-//       ></iframe>
-//     </div>
-//   );
-// }
-
-// export default VideoVisor
-
 import React, { useEffect } from "react";
 import './styles.css'
 

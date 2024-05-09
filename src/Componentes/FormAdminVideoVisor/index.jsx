@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 const FormAdminVideoVisor = ({ cambioVideoUrl }) => {
     const [newVideoUrl, setNewVideoUrl] = useState("");
     const handleChangeVideo = () => {
