@@ -1,27 +1,23 @@
-import { BrowserRouter, useRoutes } from 'react-router-dom';
-import { ImagenesProvider } from "../../Componentes/Context/ImagenContext";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ImagenesProvider } from '../../Componentes/Context/ImagenContext';
 import Home from '../Home/';
 import Admin from '../Admin/';
 import Navbar from '../../Componentes/Navbar';
-import './App.css'
-
-const AppRoutes = () => {
-  let routes = useRoutes([
-    { path: '/', element: <Home />} ,
-    { path: '/admin', element: <Admin /> },
-  ])
-  return routes
-}
+import './App.css';
 
 const App = () => {
   return (
-       <ImagenesProvider>
-          <BrowserRouter>
-            <AppRoutes />
-              <Navbar />
-          </BrowserRouter>
-       </ImagenesProvider>
-  )
-}
+    <ImagenesProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
+        <Navbar />
+      </BrowserRouter>
+    </ImagenesProvider>
+  );
+};
 
-export default App
+export default App;
