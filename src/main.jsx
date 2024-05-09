@@ -1,14 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import App from './Pages/App/App';
-import { ImagenesProvider } from './Componentes/Context/ImagenContext';
-import './index.css';
+import { ImagenesProvider } from './Componentes/Context/ImagenContext'; 
+import './index.css'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <ImagenesProvider>
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <ImagenesProvider>
+    <React.StrictMode>
       <App />
-    </ImagenesProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+    </React.StrictMode>,
+  </ImagenesProvider>
+)
