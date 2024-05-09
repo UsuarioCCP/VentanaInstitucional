@@ -1,12 +1,11 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import reactRefresh from '@vitejs/plugin-react-refresh';
 
 export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      'react': 'react', // Asegúrate de que se resuelva correctamente 'react'
-      'react-dom': 'react-dom'
+  plugins: [reactRefresh()],
+  build: {
+    rollupOptions: {
+      external: ['react', 'react-dom', 'react-router-dom']
     }
   }
 });
