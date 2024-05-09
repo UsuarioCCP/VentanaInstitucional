@@ -18,8 +18,8 @@ const App = () => {
        <ImagenesProvider>
           <BrowserRouter>
             <AppRoutes />
-            <Navbar />
-        </BrowserRouter>
+              <Navbar />
+          </BrowserRouter>
        </ImagenesProvider>
   )
 }
