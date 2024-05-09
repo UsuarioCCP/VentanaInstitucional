@@ -24,9 +24,9 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      // Elimina los alias para 'react' y 'react-dom'
+  build: {
+    rollupOptions: {
+      external: ['react', 'react-dom', 'react-router-dom'],
     },
   },
 });
