@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { NavLink } from "react-router-dom";
 import Reloj from "../Reloj";
 import "./styles.css";
